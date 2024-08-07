@@ -1,10 +1,7 @@
-const { config }  = require('./lib/server/config')
 
 module.exports = {
-  siteUrl: config.link,
+  siteUrl: process.env.SITE_URL,
   generateRobotsTxt: true,
   sitemapSize: 7000,
   generateIndexSitemap: false
-  // ...other options
-  // https://github.com/iamvishnusankar/next-sitemap#configuration-options
 }

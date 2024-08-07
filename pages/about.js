@@ -2,18 +2,18 @@ import BLOG from '@/blog.config'
 import Container from '@/components/Container'
 import { useLocale } from '@/lib/locale'
 
-const About = () => {
+export default function PageAbout () {
   const locale = useLocale()
 
   return (
     <Container>
       <div className="relative dark:text-white">
         <p> {locale.ABOUT.INTRO}</p>
-        <h2 className="font-ralewayMedium text-author text-primary my-2 hover:underline cursor-text">
+        <h2 className="my-2 font-ralewayMedium text-author text-primary hover:underline cursor-text">
           Krishna Damaraju
         </h2>
         <p> {locale.ABOUT.SUMMARY}</p>
-        <div className="my-8 border-4 border-night border-solid	p-4 dark:border-white">
+        <div className="p-4 my-8 border-4 border-solid border-night dark:border-white">
           <span className="text-3xl">🌏</span>
           <ul className="my-2">
             {BLOG.socials.map((each) => (
@@ -35,4 +35,3 @@ const About = () => {
   )
 }
 
-export default About
