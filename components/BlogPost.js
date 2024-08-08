@@ -5,14 +5,15 @@ import Link from "next/link";
 const BlogPost = ({ post }) => {
   const BLOG = useConfig();
 
+ 
   return (
-    <Link href={`${BLOG.path}/${post.slug}`}>
-      <article key={post.id} className="mb-6 md:mb-8">
+    <Link href={post?.['external-url'] ? post?.['external-url']:  `${BLOG.path}/${post.slug}`}>
+      <article key={post.id} className="mb-14">
         <header className="flex flex-col justify-between gap-2 md:items-baseline">
-          <time className="flex-shrink-0 text-gray-600 dark:text-gray-400 text-xs">
+          <time className="flex-shrink-0 text-xs text-gray-600 dark:text-gray-400">
             <FormattedDate date={post.date} />
           </time>
-          <h2 className="text-2xl font-ralewayMedium mb-2 cursor-pointer text-black dark:text-gray-100">
+          <h2 className="mb-2 text-2xl text-black cursor-pointer font-ralewayMedium dark:text-gray-100">
             {post.title}
           </h2>
         </header>
