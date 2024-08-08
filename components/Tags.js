@@ -13,7 +13,7 @@ const Tags = ({ tags, currentTag }) => {
               className={`mr-3 p-1 font-medium rounded whitespace-nowrap dark:text-gray-300 ${
                 selected
                   ? 'text-white bg-primary border-primary'
-                  : 'bg-gray-100 border-gray-100 text-gray-400 bg-transparent hover:bg-primary-light '
+                  : 'bg-gray-100 border-gray-100 text-gray-800 bg-transparent hover:bg-primary-light hover:text-white'
               }`}
             >
               <Link

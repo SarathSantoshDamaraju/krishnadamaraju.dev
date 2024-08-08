@@ -10,7 +10,7 @@ const BLOG = {
   font: 'raleway-regular', // ['sans-serif', 'serif']
   primaryColor: "#cb734d",
   primaryLight: "#d0815f",
-  lightBackground: '#ffffff', // use hex value, don't forget '#' e.g #fffefc
+  lightBackground: '#f8f9fa', // use hex value, don't forget '#' e.g #fffefc
   darkBackground: '#1c1f24', // use hex value, don't forget '#'
   path: '', // leave this empty unless you want to deploy Nobelium in a folder
   since: 2021, // If leave this empty, current year will be used.
