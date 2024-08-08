@@ -37,7 +37,7 @@
 }
 
 html {
-  --scrollbarBG: #ffffff00;
+  --scrollbarBG: #f8f9fa00;
   --thumbBG: #b8b8b8;
 }
 body::-webkit-scrollbar {

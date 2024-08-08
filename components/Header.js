@@ -8,7 +8,6 @@ const NavBar = () => {
   const BLOG = useConfig()
   const locale = useLocale()
   const links = [
-    { id: 1, name: locale.NAV.BITS, to: '/bits', show: true },
     { id: 2, name: locale.NAV.ABOUT, to: '/about', show: BLOG.showAbout },
     { id: 3, name: locale.NAV.SEARCH, to: '/search', show: true },
   ]
@@ -83,7 +82,7 @@ export default function Header ({ navBarTitle, fullWidth }) {
     <>
       <div className="observer-element" ref={sentinelRef}></div>
       <div
-        className='sticky-nav group m-auto w-full flex flex-row justify-between items-center mb-2 md:mb-12  bg-opacity-60 px-10 py-5'
+        className='flex flex-row items-center justify-between w-full px-10 py-5 m-auto mb-2 sticky-nav group md:mb-12 bg-opacity-60'
         id="sticky-nav"
         ref={navRef}
         onClick={handleClickHeader}
@@ -133,10 +132,10 @@ if(!postTitle) {
   return (
     <p
       ref={ref}
-      className="header-name ml-2 font-medium text-gray-600 dark:text-gray-300 capture-pointer-events grid-rows-1 grid-cols-1 items-center"
+      className="items-center grid-cols-1 grid-rows-1 ml-2 font-medium text-gray-600 header-name dark:text-gray-300 capture-pointer-events"
       onClick={onClick}
     >
-      {postTitle && <span className="post-title row-start-1 col-start-1">| {postTitle}</span>}
+      {postTitle && <span className="col-start-1 row-start-1 post-title">| {postTitle}</span>}
     </p>
   )
 })
