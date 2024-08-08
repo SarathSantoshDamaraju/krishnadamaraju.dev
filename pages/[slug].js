@@ -9,7 +9,6 @@ import { createHash } from 'crypto'
 import Container from '@/components/Container'
 import Post from '@/components/Post'
 import Comments from '@/components/Comments'
-import { type } from 'os'
 
 export default function BlogPost ({ post, blockMap, emailHash }) {
   const router = useRouter()
@@ -73,8 +72,6 @@ export default function BlogPost ({ post, blockMap, emailHash }) {
 
 export async function getStaticPaths () {
   const posts = await getContent({type: 'Post'});
-
-  console.log(clientConfig.path)
   return {
     paths: posts.map(row => `${clientConfig.path}/${row.slug}`),
     fallback: true
