@@ -7,7 +7,7 @@ import { getContent } from '@/lib/notion'
 import { useConfig } from '@/lib/config'
 
 export async function getStaticProps () {
-  const posts = await getContent({type: 'Post'})
+  const posts = await getContent({type: 'Bit'})
   const postsToShow = posts.slice(0, clientConfig.postsPerPage)
   const totalPosts = posts.length
   const showNext = totalPosts > clientConfig.postsPerPage

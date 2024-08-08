@@ -2,13 +2,14 @@ import { clientConfig } from '@/lib/server/config'
 
 import { useRouter } from 'next/router'
 import cn from 'classnames'
-import { getAllPosts, getPostBlocks } from '@/lib/notion'
+import { getContent, getPostBlocks } from '@/lib/notion'
 import { useLocale } from '@/lib/locale'
 import { useConfig } from '@/lib/config'
 import { createHash } from 'crypto'
 import Container from '@/components/Container'
 import Post from '@/components/Post'
 import Comments from '@/components/Comments'
+import { type } from 'os'
 
 export default function BlogPost ({ post, blockMap, emailHash }) {
   const router = useRouter()
@@ -71,7 +72,9 @@ export default function BlogPost ({ post, blockMap, emailHash }) {
 }
 
 export async function getStaticPaths () {
-  const posts = await getAllPosts({ includePages: true })
+  const posts = await getContent({type: 'Post'});
+
+  console.log(clientConfig.path)
   return {
     paths: posts.map(row => `${clientConfig.path}/${row.slug}`),
     fallback: true
@@ -79,7 +82,7 @@ export async function getStaticPaths () {
 }
 
 export async function getStaticProps ({ params: { slug } }) {
-  const posts = await getAllPosts({ includePages: true })
+  const posts = await getContent({type: 'Post'});
   const post = posts.find(t => t.slug === slug)
 
   if (!post) return { notFound: true }
