@@ -1,16 +1,12 @@
 import { useConfig } from '@/lib/config'
-import { useLocale } from '@/lib/locale'
 import useTheme from '@/lib/theme'
 import Link from 'next/link'
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 import ThemeSwitcher from './ThemeSwitcher'
 
 const NavBar = () => {
-  const BLOG = useConfig()
-  const locale = useLocale()
   const links = [
     { name: 'blogs', to: '/blogs', show: true },
-    { name: 'work', to: '/work', show: true },
     { name: 'search', to: '/search', show: true },
   ]
   return (

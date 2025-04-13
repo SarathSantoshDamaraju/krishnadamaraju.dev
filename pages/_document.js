@@ -11,9 +11,8 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="icon" href="/favicon.png" />
-          <link rel="icon" href="/favicon.dark.png" media="(prefers-color-scheme: dark)" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="icon" href="/favicon.ico" />
+          <link rel="apple-touch-icon" href="/favicon.ico" />
           <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feed" />
           <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="/atom" />
           <link rel="alternate" type="application/json" title="JSON Feed" href="/feed.json" />
