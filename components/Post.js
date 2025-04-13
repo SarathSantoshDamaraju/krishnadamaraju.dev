@@ -25,52 +25,64 @@ export default function Post({ post, blockMap, emailHash, fullWidth = false }) {
 
   return (
     <article className={cn('flex flex-col', fullWidth ? 'md:px-24' : 'items-center')}>
-      {post.cover && (
-        <div className="w-full h-[60vh] relative mb-8">
-          <Image
-            src={post.cover}
-            alt={post.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
-      <h1 className={cn(
-        'w-full font-bold text-3xl text-black dark:text-white',
-        { 'max-w-2xl px-4': !fullWidth }
-      )}>
-        {post.title}
-      </h1>
-      {post.type[0] !== 'Page' && (
-        <nav className={cn(
-          'w-full flex mt-7 items-start text-gray-500 dark:text-gray-400',
+      {post.cover ? (
+        <>
+          <div className="w-full h-[30vh] sm:h-[40vh] md:h-[50vh] lg:h-[60vh] relative">
+            <Image
+              src={post.cover}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className={cn(
+            'w-full mt-4',
+            { 'max-w-2xl px-4': !fullWidth }
+          )}>
+
+
+          <FormattedDate date={post.date} />
+
+            <h1 className="font-bold text-3xl my-4 text-black dark:text-white">
+              {post.title}
+            </h1>
+            {post.type[0] !== 'Page' && (
+              <nav className=
+                'w-full flex mb-2 items-start text-gray-500 dark:text-gray-400'
+                >
+                <div className="flex gap-2">
+                  <a href={BLOG.socialLink || '#'} className="flex">
+                    <Image
+                      alt={BLOG.author}
+                      width={24}
+                      height={24}
+                      src={BLOG.avatar}
+                      className="rounded-full"
+                    />
+                    <p className="ml-2 md:block">{BLOG.author}</p>
+                  </a>
+
+                  {post.tags && (
+                    <div className="flex flex-nowrap max-w-full overflow-x-auto article-tags">
+                      {post.tags.map(tag => (
+                        <TagItem key={tag} tag={tag} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+              </nav>
+            )}
+          </div>
+        </>
+      ) : (
+        <h1 className={cn(
+          'w-full font-bold text-3xl text-black dark:text-white mt-8',
           { 'max-w-2xl px-4': !fullWidth }
         )}>
-          <div className="flex mb-4">
-            <a href={BLOG.socialLink || '#'} className="flex">
-              <Image
-                alt={BLOG.author}
-                width={24}
-                height={24}
-                src={BLOG.avatar}
-                className="rounded-full"
-              />
-              <p className="ml-2 md:block">{BLOG.author}</p>
-            </a>
-            <span className="block">&nbsp;/&nbsp;</span>
-          </div>
-          <div className="mr-2 mb-4 md:ml-0">
-            <FormattedDate date={post.date} />
-          </div>
-          {post.tags && (
-            <div className="flex flex-nowrap max-w-full overflow-x-auto article-tags">
-              {post.tags.map(tag => (
-                <TagItem key={tag} tag={tag} />
-              ))}
-            </div>
-          )}
-        </nav>
+          {post.title}
+        </h1>
       )}
       <div className="self-stretch -mt-4 flex flex-col items-center lg:flex-row lg:items-stretch">
         {!fullWidth && <div className="flex-1 hidden lg:block" />}

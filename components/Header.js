@@ -7,7 +7,7 @@ import ThemeSwitcher from './ThemeSwitcher'
 const NavBar = () => {
   const links = [
     { name: 'blogs', to: '/blogs', show: true },
-    { name: 'search', to: '/search', show: true },
+    { name: 'search', to: '/search', show: true, isIcon: true },
   ]
   return (
     <div className="flex-shrink-0">
@@ -17,13 +17,32 @@ const NavBar = () => {
             link.show && (
               <li
                 key={link.name}
-                className="block text-black dark:text-gray-50 nav ml-4"
+                className="block text-black dark:text-gray-50 nav mx-1"
               >
-                <Link href={link.to} target={link.external ? '_blank' : null}>{link.name}</Link>
+                <Link href={link.to} target={link.external ? '_blank' : null} className='flex items-center justify-center p-2 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800'>
+                  {link.isIcon ? (
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  ) : (
+                    <span className="text-sm sm:text-base">{link.name}</span>
+                  )}
+                </Link>
               </li>
             )
         )}
-        <li className="ml-4">
+        <li className='mx-1'>
           <ThemeSwitcher />
         </li>
       </ul>
@@ -83,7 +102,7 @@ export default function Header ({ navBarTitle, fullWidth }) {
     <>
       <div className="observer-element" ref={sentinelRef}></div>
       <div
-        className='flex flex-row items-center justify-between w-full px-10 py-5 m-auto mb-2 sticky-nav group md:mb-12 bg-opacity-60'
+        className='flex flex-row items-center justify-between w-full px-4 sm:px-6 md:px-10 py-4 sm:py-5 m-auto sticky-nav group bg-opacity-60'
         id="sticky-nav"
         ref={navRef}
         onClick={handleClickHeader}
@@ -93,8 +112,9 @@ export default function Header ({ navBarTitle, fullWidth }) {
           <svg
           id="logo"
           xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
+          width="32"
+          height="32"
+          className="sm:w-[40px] sm:h-[40px]"
           viewBox="0 0 40 40"
         >
           <rect
@@ -133,7 +153,7 @@ if(!postTitle) {
   return (
     <p
       ref={ref}
-      className="items-center grid-cols-1 grid-rows-1 ml-2 font-medium text-gray-600 header-name dark:text-gray-300 capture-pointer-events"
+      className="items-center grid-cols-1 grid-rows-1 ml-1 sm:ml-2 font-medium text-sm sm:text-base text-gray-600 header-name dark:text-gray-300 capture-pointer-events truncate max-w-[150px] sm:max-w-none"
       onClick={onClick}
     >
       {postTitle && <span className="col-start-1 row-start-1 post-title">| {postTitle}</span>}

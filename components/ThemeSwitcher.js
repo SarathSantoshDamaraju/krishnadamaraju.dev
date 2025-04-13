@@ -28,7 +28,7 @@ export default function ThemeSwitcher() {
     <button
       aria-label="Toggle Theme"
       type="button"
-      className="flex items-center justify-center w-9 h-9 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
+      className="flex items-center justify-center p-2 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
       onClick={cycleTheme}
       title={`Theme: ${theme} ${theme === 'system' ? `(${resolvedTheme})` : ''}`}
     >

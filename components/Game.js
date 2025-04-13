@@ -28,23 +28,25 @@ export default function Game() {
   }
 
   return (
-    <div className="w-[400px] max-w-4xl mx-auto p-8 bg-theme-light-bg dark:bg-theme-dark-bg rounded-lg ">
-      <h2 className="text-3xl font-bold text-center mb-8 text-theme-light-text dark:text-theme-dark-text">
+    <div className="w-full max-w-[400px] mx-auto p-4 sm:p-8 bg-theme-light-bg dark:bg-theme-dark-bg rounded-lg">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-8 text-theme-light-text dark:text-theme-dark-text">
         Nothing here. Search or play a game.
       </h2>
-      <p className="text-center mb-8 text-theme-light-text/80 dark:text-theme-dark-text/80">
+      <p className="text-center mb-4 sm:mb-8 text-theme-light-text/80 dark:text-theme-dark-text/80">
         Match the pairs of emojis to win! Click on cards to flip them.
       </p>
-      <div className="grid grid-cols-4 gap-2 gap-y-2">
+      <div className="grid grid-cols-4 gap-1 sm:gap-2">
         {shuffledCards.map((card, index) => (
           <div
             key={index}
             onClick={() => handleCardClick(index)}
-            className={`w-20 h-20 flex items-center justify-center text-3xl cursor-pointer rounded-lg transition-all duration-300 ${
+            className={`aspect-square w-full flex items-center justify-center text-xl sm:text-3xl cursor-pointer rounded-lg
+              transition-transform duration-150 active:scale-95 ${
               flippedCards.includes(index) || matchedCards.includes(index)
                 ? 'bg-primary text-white'
-                : 'bg-gray-200 dark:bg-gray-700 hover:bg-primary/60 dark:hover:bg-primary/60'
-            }`}
+                : 'bg-gray-200 dark:bg-gray-700 hover:bg-primary/60 dark:hover:bg-primary/60 @media (hover: none) { hover:bg-gray-200 dark:hover:bg-gray-700 }'
+            } touch-manipulation`}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             {(flippedCards.includes(index) || matchedCards.includes(index)) && card}
           </div>
