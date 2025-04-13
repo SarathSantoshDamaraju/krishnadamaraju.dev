@@ -1,9 +1,10 @@
 import { useConfig } from '@/lib/config'
 import { useLocale } from '@/lib/locale'
 import useTheme from '@/lib/theme'
-import FormattedDate from '@/components/FormattedDate'
 import Link from 'next/link'
+import Image from 'next/image'
 import SectionDivider from '@/components/ui/SectionDivider'
+import { cn } from '@/lib/utils'
 
 const getStatusColor = (status) => {
   switch (status) {
@@ -26,31 +27,50 @@ export default function Work({ items, showDividers = true, showTitle = true }) {
   return (
     <>
       {showTitle && <SectionDivider>Work</SectionDivider>}
-      <div className={`flex flex-wrap gap-4 ${items?.length === 1 ? 'justify-start' : 'justify-center'} mb-12`}>
-        {items?.map((item) => (
-          <div key={item.id} className="relative group w-[200px] h-[200px]">
-            {item['work-status'] && (
-              <div className={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium text-white shadow-lg ${getStatusColor(item['work-status'])}`}>
-                {item['work-status']}
+      <div className='flex flex-wrap gap-4 mb-12 justify-start'>
+        {items?.map((item) => {
+          const content = (
+            <>
+              {item['work-status'] && (
+                <div className={cn(
+                  'absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium text-white shadow-lg',
+                  getStatusColor(item['work-status'])
+                )}>
+                  {item['work-status']}
+                </div>
+              )}
+              <Image
+                src={item.cover}
+                alt={item.title}
+                fill
+                className=" object-cover rounded-lg hover:opacity-50 transition-opacity duration-300"
+                onError={(e) => {
+                  console.error(`Failed to load image: ${item.cover}`)
+                  e.target.style.display = 'none'
+                }}
+              />
+              <div className="border-primary hover:border-2 absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg bg-theme-light-bg/90 dark:bg-theme-dark-bg/90">
+                <span className="text-sm font-medium text-theme-light-text dark:text-theme-dark-text px-3 py-2 text-center break-words max-w-[110px]">
+                  {item.summary}
+                </span>
               </div>
-            )}
-            <img
-              src={item.cover}
-              alt={item.title}
-              className="w-full h-full object-cover rounded-lg opacity-50 hover:opacity-100 transition-opacity duration-300"
-              loading="lazy"
-              onError={(e) => {
-                console.error(`Failed to load image: ${item.cover}`);
-                e.target.style.display = 'none';
-              }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg bg-theme-light-bg/90 dark:bg-theme-dark-bg/90">
-              <span className="text-sm font-medium text-theme-light-text dark:text-theme-dark-text px-3 py-2 text-center break-words max-w-[110px]">
-                {item.title}
-              </span>
+            </>
+          )
+
+          return (
+            <div key={item.id} className="relative group w-[200px] h-[200px]">
+              {item['external-url'] ? (
+                <Link
+                  href={item['external-url']}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {content}
+                </Link>
+              ) : content}
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </>
   )
