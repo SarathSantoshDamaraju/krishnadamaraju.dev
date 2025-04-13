@@ -1,91 +1,37 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import cn from "classnames";
-import { config } from "@/lib/server/config";
-import tailwind from "@/tailwind.config";
-import CJK from "@/lib/cjk";
-class MyDocument extends Document {
+import { GA_TRACKING_ID } from "@/lib/gtag";
+
+export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
   }
 
   render() {
-    const initialColorScheme = {
-      auto: "color-scheme-unset",
-      dark: "dark",
-    }[config.appearance];
-
     return (
-      <Html lang={config.lang} className={cn(initialColorScheme)}>
+      <Html lang="en">
         <Head>
-          <link
-            rel="preload"
-            href="/fonts/Raleway-Regular.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
+          <link rel="icon" href="/favicon.png" />
+          <link rel="icon" href="/favicon.dark.png" media="(prefers-color-scheme: dark)" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feed" />
+          <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="/atom" />
+          <link rel="alternate" type="application/json" title="JSON Feed" href="/feed.json" />
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" />
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" />
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}');
+          `
+            }}
           />
-          <link
-            rel="preload"
-            href="/fonts/Raleway-Bold.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Raleway-Medium.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-
-          <link rel="icon" href="/favicon.ico" />
-          <link
-            rel="alternate"
-            type="application/rss+xml"
-            title="RSS 2.0"
-            href="/feed"
-          ></link>
-          {config.appearance === "auto" ? (
-            <>
-              <meta
-                name="theme-color"
-                content={config.lightBackground}
-                media="(prefers-color-scheme: light)"
-              />
-              <meta
-                name="theme-color"
-                content={config.darkBackground}
-                media="(prefers-color-scheme: dark)"
-              />
-            </>
-          ) : (
-            <meta
-              name="theme-color"
-              content={
-                config.appearance === "dark"
-                  ? config.darkBackground
-                  : config.lightBackground
-              }
-            />
-          )}
-          {/* To ensure the initial background color follows media preference when ThemeProvider is
-              not ready */}
-          <style>
-            {`
-            .color-scheme-unset, .color-scheme-unset body {
-              background-color: ${tailwind.theme.extend.colors.day.DEFAULT} !important;
-            }
-            @media (prefers-color-scheme: dark) {
-              .color-scheme-unset, .color-scheme-unset body {
-                background-color: ${tailwind.theme.extend.colors.night.DEFAULT} !important;
-              }
-            }
-          `}
-          </style>
         </Head>
-        <body className="bg-day dark:bg-night">
+        <body>
           <Main />
           <NextScript />
         </body>
@@ -93,5 +39,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;

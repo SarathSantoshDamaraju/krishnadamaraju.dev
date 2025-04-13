@@ -3,28 +3,33 @@ import { useLocale } from '@/lib/locale'
 import useTheme from '@/lib/theme'
 import Link from 'next/link'
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
+import ThemeSwitcher from './ThemeSwitcher'
 
 const NavBar = () => {
   const BLOG = useConfig()
   const locale = useLocale()
   const links = [
-    { id: 1, name: locale.NAV.ABOUT, to: '/about', show: BLOG.showAbout },
-    { id: 2, name: locale.NAV.SEARCH, to: '/search', show: true },
+    { name: 'blogs', to: '/blogs', show: true },
+    { name: 'work', to: '/work', show: true },
+    { name: 'search', to: '/search', show: true },
   ]
   return (
     <div className="flex-shrink-0">
-      <ul className="flex flex-row">
+      <ul className="flex flex-row items-center">
         {links.map(
           link =>
             link.show && (
               <li
-                key={link.id}
-                className="block ml-4 text-black dark:text-gray-50 nav"
+                key={link.name}
+                className="block text-black dark:text-gray-50 nav ml-4"
               >
                 <Link href={link.to} target={link.external ? '_blank' : null}>{link.name}</Link>
               </li>
             )
         )}
+        <li className="ml-4">
+          <ThemeSwitcher />
+        </li>
       </ul>
     </div>
   )

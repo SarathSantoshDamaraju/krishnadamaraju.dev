@@ -1,35 +1,35 @@
-import { clientConfig } from '@/lib/server/config'
-
 import Container from '@/components/Container'
-import BlogPost from '@/components/BlogPost'
-import Pagination from '@/components/Pagination'
 import { getContent } from '@/lib/notion'
-import { useConfig } from '@/lib/config'
+import Hero from '@/components/sections/Hero'
+import Companies from '@/components/sections/Companies'
+import Work from '@/components/sections/Work'
+import RecentPosts from '@/components/sections/RecentPosts'
 
-export async function getStaticProps () {
-  const posts = await getContent({type: 'Post'})
-  const postsToShow = posts.slice(0, clientConfig.postsPerPage)
-  const totalPosts = posts.length
-  const showNext = totalPosts > clientConfig.postsPerPage
+export async function getStaticProps() {
+  const [postsToShow, workItems] = await Promise.all([
+    getContent({ type: 'Post', limit: 2 }),
+    getContent({ type: 'Work' })
+  ])
+
+
   return {
     props: {
-      page: 1, // current page is 1
       postsToShow,
-      showNext
+      workItems
     },
     revalidate: 1
   }
 }
 
-export default function Blog ({ postsToShow, page, showNext }) {
-  const { title, description } = useConfig()
-
+export default function PageAbout({ postsToShow, workItems }) {
   return (
-    <Container title={title} description={description}>
-      {postsToShow.map(post => (
-        <BlogPost key={post.id} post={post} />
-      ))}
-      {showNext && <Pagination page={page} showNext={showNext} />}
+    <Container>
+      <div className="relative text-theme-light-text dark:text-theme-dark-text">
+        <Hero />
+        <Companies />
+        {postsToShow.length > 0 && <RecentPosts posts={postsToShow} />}
+        {workItems.length > 0 && <Work items={workItems} />}
+      </div>
     </Container>
   )
 }

@@ -8,7 +8,7 @@ const fontSansCJK = !CJK()
 module.exports = {
   mode: "jit",
   purge: ["./pages/**/*.js", "./components/**/*.js", "./layouts/**/*.js"],
-  darkMode: BLOG.appearance === "auto" ? "media" : "class", // or 'media' or 'class'
+  darkMode: "class", // Always use class-based dark mode
   theme: {
     extend: {
       colors: {
@@ -20,6 +20,20 @@ module.exports = {
         night: {
           DEFAULT: BLOG.darkBackground || "#2F4858",
         },
+        theme: {
+          light: {
+            bg: '#f8f9fa',
+            text: '#111827', // gray-900
+            mutedText: '#6B7280', // gray-500
+            divider: '#E5E7EB', // gray-200
+          },
+          dark: {
+            bg: '#1a1a1a',
+            text: '#F3F4F6', // gray-100
+            mutedText: '#9CA3AF', // gray-400
+            divider: '#374151', // gray-700
+          }
+        }
       },
       fontSize: {
         author: "48px",

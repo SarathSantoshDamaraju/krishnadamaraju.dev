@@ -23,6 +23,28 @@ const BLOG = {
   socialLink: 'https://twitter.com/krishnadamaraju',
   avatar:
   "https://lh3.googleusercontent.com/ogw/ADea4I7HNclaRfwivBtpXv_GLZlQbO67A0id6w5--1Rjwg=s64-c-mo",
+  companies: [
+    {
+      name: "HighLevel",
+      logo: "/images/highlevel-logo.webp",
+      alt: "HighLevel Logo"
+    },
+    {
+      name: "Rocketlane",
+      logo: "/images/rocketlane-logo.webp",
+      alt: "Rocketlane Logo"
+    },
+    {
+      name: "Freshworks",
+      logo: "/images/freshworks-logo.webp",
+      alt: "Freshworks Logo"
+    },
+    {
+      name: "Happyfox",
+      logo: "/images/happyfox-logo.webp",
+      alt: "Happyfox Logo"
+    },
+  ],
   seo: {
     keywords: ['Blog', 'Website', 'Notion'],
     googleSiteVerification: '' // Remove the value or replace it with your own google site verification code
