@@ -7,7 +7,8 @@ import SectionDivider from '@/components/ui/SectionDivider'
 import { cn } from '@/lib/utils'
 
 const getStatusColor = (status) => {
-  switch (status) {
+
+  switch (status[0]) {
     case 'sold':
       return 'bg-green-500/90'
     case 'in-progress':
@@ -27,13 +28,13 @@ export default function Work({ items, showDividers = true, showTitle = true }) {
   return (
     <>
       {showTitle && <SectionDivider>Work</SectionDivider>}
-      <div className='flex flex-wrap gap-4 mb-12 justify-start'>
+      <div className='flex flex-wrap gap-4 mb-12 ju'>
         {items?.map((item) => {
           const content = (
             <>
               {item['work-status'] && (
                 <div className={cn(
-                  'absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium text-white shadow-lg',
+                  'z-10  absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium text-white shadow-lg',
                   getStatusColor(item['work-status'])
                 )}>
                   {item['work-status']}
