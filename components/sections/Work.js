@@ -28,13 +28,13 @@ export default function Work({ items, showDividers = true, showTitle = true }) {
   return (
     <>
       {showTitle && <SectionDivider>Work</SectionDivider>}
-      <div className='flex flex-wrap gap-4 mb-12 ju'>
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 mb-12'>
         {items?.map((item) => {
           const content = (
             <>
               {item['work-status'] && (
                 <div className={cn(
-                  'z-10  absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium text-white shadow-lg',
+                  'z-10 absolute top-2 left-2 px-2 py-1 rounded-md text-[10px] sm:text-xs font-medium text-white shadow-lg',
                   getStatusColor(item['work-status'])
                 )}>
                   {item['work-status']}
@@ -44,14 +44,14 @@ export default function Work({ items, showDividers = true, showTitle = true }) {
                 src={item.cover}
                 alt={item.title}
                 fill
-                className=" object-cover rounded-lg hover:opacity-50 transition-opacity duration-300"
+                className="object-cover rounded-lg hover:opacity-50 transition-opacity duration-300"
                 onError={(e) => {
                   console.error(`Failed to load image: ${item.cover}`)
                   e.target.style.display = 'none'
                 }}
               />
               <div className="border-primary hover:border-2 absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg bg-theme-light-bg/90 dark:bg-theme-dark-bg/90">
-                <span className="text-sm font-medium text-theme-light-text dark:text-theme-dark-text px-3 py-2 text-center break-words max-w-[110px]">
+                <span className="text-xs sm:text-sm font-medium text-theme-light-text dark:text-theme-dark-text px-2 sm:px-3 py-2 text-center break-words max-w-[90%] sm:max-w-[110px]">
                   {item.summary}
                 </span>
               </div>
@@ -59,7 +59,7 @@ export default function Work({ items, showDividers = true, showTitle = true }) {
           )
 
           return (
-            <div key={item.id} className="relative group w-[200px] h-[200px]">
+            <div key={item.id} className="relative group aspect-square w-full">
               {item['external-url'] ? (
                 <Link
                   href={item['external-url']}
