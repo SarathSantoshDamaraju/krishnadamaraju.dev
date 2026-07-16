@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { GA_TRACKING_ID } from "@/lib/gtag";
+import BLOG from "@/blog.config";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -18,17 +18,21 @@ export default class MyDocument extends Document {
           <link rel="alternate" type="application/json" title="JSON Feed" href="/feed.json" />
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" />
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" />
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}');
-          `
-            }}
-          />
+          {BLOG.analytics && BLOG.analytics.provider === 'ga' && BLOG.analytics.gaConfig.measurementId && (
+            <>
+              <script async src={`https://www.googletagmanager.com/gtag/js?id=${BLOG.analytics.gaConfig.measurementId}`} />
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${BLOG.analytics.gaConfig.measurementId}');
+              `
+                }}
+              />
+            </>
+          )}
         </Head>
         <body>
           <Main />
